@@ -40,19 +40,19 @@ function Map(cities) {
 }
 
 Map.prototype.getNorthernmostCity = function () {
-
+    return this.cities.reduce((prev, curr) => prev.latitude > curr.latitude ? prev : curr);
 } 
 
 Map.prototype.getEasternmostCity = function () {
-
+    return this.cities.reduce((prev, curr) => prev.longitude > curr.longitude ? prev : curr);
 }
 
 Map.prototype.getSouthernmostCity = function () {
-
+    return this.cities.reduce((prev, curr) => prev.latitude < curr.latitude ? prev : curr);
 }
 
 Map.prototype.getWesternmostCity = function () {
-
+    return this.cities.reduce((prev, curr) => prev.longitude < curr.longitude ? prev : curr);
 }
 
 Map.prototype.closestCityToLocation = function (longitude, latitude) {
