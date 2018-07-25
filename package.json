@@ -1,0 +1,22 @@
+{
+  "name": "map-task",
+  "version": "1.0.0",
+  "description": "Map task",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha tests.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DianaVoyanets/map-task.git"
+  },
+  "author": "Diana Voyanets",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/DianaVoyanets/map-task/issues"
+  },
+  "homepage": "https://github.com/DianaVoyanets/map-task#readme",
+  "devDependencies": {
+    "mocha": "^5.2.0"
+  }
+}
