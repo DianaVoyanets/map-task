@@ -1,4 +1,16 @@
 function City(name, latitude, longitude) {
+    if (typeof name !== 'string') {
+        throw new Error('Name is string');
+    }
+
+    if (!isNumber(latitude)) {
+        throw new Error('Latitude is number');
+    }
+
+    if (!isNumber(longitude)) {
+        throw new Error('Longitude is number');
+    }
+
     this.name = name;
     this.latitude = latitude;
     this.longitude = longitude;
@@ -43,29 +55,20 @@ Map.prototype.getWesternmostCity = function () {
 
 }
 
-function distanceBetweenGeocodes(lat1, lon1, lat2, lon2) {
-
-    function toRadians(value) { 
-        return value * Math.PI / 180; 
-    }
-    
-    var rad1 = toRadians(lat1) 
-        rad2 = toRadians(lat2), 
-        sigma = toRadians(lon2 - lon1), 
-        R = 6371e3;
-
-    var distance = Math.acos(Math.sin(rad1) * Math.sin(rad2) + Math.cos(rad1) * Math.cos(rad2) * Math.cos(sigma)) * R;
-
-    return distance;
-}
-
 Map.prototype.closestCityToLocation = function (longitude, latitude) {
+    if (!isNumber(latitude)) {
+        throw new Error('Latitude is number');
+    }
+
+    if (!isNumber(longitude)) {
+        throw new Error('Longitude is number');
+    }
 
     var citiesDistances = this.cities
         .map((city) => {
             return {
                 city: city, 
-                distance: distanceBetweenGeocodes(longitude, latitude, city.latitude, city.longitude)
+                distance: distanceBetweenGeocodes(latitude, longitude, city.latitude, city.longitude)
             }
         });
 
@@ -76,6 +79,25 @@ Map.prototype.closestCityToLocation = function (longitude, latitude) {
 Map.prototype.getCityCodes = function () {
     var cityCodes = this.cities.map(city => city.getCode()).toString();
     return cityCodes;
+}
+
+function isNumber(value) {
+    return typeof value === 'number' && Number.isFinite(value);
+}
+
+function distanceBetweenGeocodes(lat1, lon1, lat2, lon2) {
+
+    function toRadians(value) { 
+        return value * Math.PI / 180; 
+    }
+    
+    var rad1 = toRadians(lat1) 
+        rad2 = toRadians(lat2), 
+        delta = toRadians(lon2 - lon1), 
+        R = 6371e3;
+
+    var distance = Math.acos(Math.sin(rad1) * Math.sin(rad2) + Math.cos(rad1) * Math.cos(rad2) * Math.cos(delta)) * R;
+    return distance;
 }
 
 exports.City = City;
