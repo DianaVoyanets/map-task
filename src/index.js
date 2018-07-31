@@ -19,7 +19,7 @@ function City(name, latitude, longitude) {
 City.prototype.getCode = function () {
     var splited = this.name.split(',');
     
-    if (splited < 1) {
+    if (splited.length < 1) {
         throw new Error('Сity name is not contain the code');
     }
 
